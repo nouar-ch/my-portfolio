@@ -4,7 +4,7 @@
         "img": "images/portfolio.png",
         "desc": "My portfolio website, developed using Vuejs.",
         "codeLink": "https://github.com/nouar-ch/my-portfolio",
-        "demoLink": "https://dreamy-feynman-7afc2e.netlify.app",
+        "demoLink": "https://nouarch.netlify.app",
         "tags": [
             "HTML",
             "CSS",
