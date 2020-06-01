@@ -1,15 +1,24 @@
 <template>
     <div class="container-root">
-        <div class="route" :class="{'show': route == 'Home'}">
-            <Home />
-        </div>
-        <div class="route" :class="{'show': route == 'Code'}">
-            <Gallery />
-        </div>
-        <div class="route" :class="{'show': route == 'About'}">
-            <About />
-        </div>
-        
+        <transition
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enterAnimation"
+            v-on:leave="leaveAnimation"
+            mode="out-in"
+            >
+            <div key="home" ref="page" class="route" v-if="route == 'Home'" >
+                <Home />
+            </div>
+            <div key="code" ref="page" class="route" v-else-if="route == 'Code'" >
+                <Gallery />
+            </div>
+            <div key="about" ref="page" class="route" v-else-if="route == 'About'" >
+                <About />
+            </div>
+            <div key="skills" ref="page" class="route" v-else-if="route == 'Skills'" >
+                <Skills />
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -17,16 +26,57 @@
 import Home from "./Home"
 import Gallery from "./Gallery";
 import About from "./About"
+import Skills from './Skills'
+
+import { TimelineMax } from "gsap";
 
 export default {
     name: "Container",
     components: {
         Home,
         Gallery,
-        About
+        About,
+        Skills
     },
     props: {
         route: String
+    },
+    methods: {
+        beforeEnter (el) {
+            new TimelineMax()
+            .to(
+                el,
+                0,
+                {
+                    translateY: "500%",
+                },
+                0
+            )
+        },
+        enterAnimation (el, done) {
+            console.log("enter animation", el)
+            new TimelineMax({onComplete: done})
+            .to(
+                el,
+                0.1,
+                {
+                    translateY: "0%"
+                },
+                0
+            )
+        },
+        leaveAnimation (el, done) {
+            console.log("leave animation", el)
+            new TimelineMax({onComplete: done})
+            .to(
+                el,
+                0.2,
+                {
+                    translateY: "-500%"
+                },
+                0
+            )
+        }
     }
 }
 </script>
@@ -36,7 +86,7 @@ export default {
 .container-root {
     position: relative;
     width: 100%;
-    overflow: auto;
+    height: 100%;
 }
 
 .route {
@@ -45,15 +95,14 @@ export default {
     left: 0;
     right: 0;
     transition: 500ms;
-    opacity: 0;
-    height: 0;
+    height: 100%;
     overflow: hidden;
 }
 
 .show {
     transition: 500ms 500ms;
     opacity: 1;
-    height: fit-content;
+    
     z-index: 1;
 }
 

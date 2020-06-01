@@ -1,46 +1,29 @@
 <template>
     <div class="item-container">
-        <div class="item-present">
-            <img class="item-thumbnail" />
-            <div class="item-info">
-                <h1>{{item.title}}</h1>
-                <div class="item-btns">
-                    <a :href="item.codeLink" target="_blank">
-                        <small>
-                            <fa-icon icon="code"/>
-                        </small>
-                        VIEW CODE
-                    </a>
-                    <a v-if="item.siteLink" :href="item.siteLink" target="_blank">
-                        <fa-icon icon="chevron-right" />
-                        TRY IT OUT
-                    </a>
-                </div>
+        <img class="item-thumbnail" :src="item.img" alt="" srcset="">
+        <div class="tag-list">
+            <div class="tag" v-for="(tag, index) in item.tags" :key="index">
+                {{tag}}
             </div>
         </div>
-        <hr class="item-sep">
         <div class="item-desc">
-            <p>
+            <h3 class="item-title">{{item.title}}</h3>
+            <p class="item-info">
                 {{item.desc}}
             </p>
-        </div>
-        <div class="item-tags">
-            <span v-for="(tag, i) in item.tags" :key="i">
-                {{tag}}
-            </span>
+            <div class="controls">
+                <a v-if="item.codeLink" :href="item.codeLink">VIEW CODE</a>
+                <a v-if="item.demoLink" :href="item.demoLink">TRY OUT</a>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCode, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-
-library.add(faCode, faChevronRight)
 
 export default {
     name: "Item",
-    props: ["idx", "item"]
+    props: ["idx", "item"],
 
 }
 </script>
@@ -48,111 +31,126 @@ export default {
 <style scoped>
 
 .item-container {
-    margin: auto;
-    margin-bottom: 2em;
-    width: calc(100% - 1em);
-    background-color: rgb(32, 32, 32);
-    box-shadow: rgb(32, 32, 32) 0 0 1em;
-    border-radius: 5px;
-    text-align: left;
-    color: floralwhite;
-    padding: 0.5em;
-}
-
-.item-present {
     display: flex;
+    flex-direction: column;
+    position: relative;
     width: 100%;
-    height: fit-content;
-    justify-content: stretch;
+    height: 0;
+    padding-bottom: 100%;
+    text-align: left;
+    overflow: hidden;
+    box-shadow: #1d1d1d 0 0 0.3em;
+    border-radius: 0.5em;
 }
 
 .item-thumbnail {
-    max-width: 200px;
-    max-height: 200px;
-    width: 20vw;
-    height: 20vw;
-}
-
-.item-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 1em;
-    flex-grow: 1;
-}
-
-.item-info a {
-    padding: 0.4em;
-    padding-right: 0.6em;
-    padding-left: 0.6em;
-    float: left;
-    margin: 0.4em;
-    background-color: firebrick;
-    box-shadow: firebrick 0 0 0.5em;
-    color: floralwhite;
-    font-style: normal;
-}
-
-.item-info a:hover {
-    text-shadow: floralwhite 0 0 0.8em;
-}
-
-.item-info a:active {
-    background-color: floralwhite;
-}
-
-.item-tags > span {
-    display: block;
-    float: left;
-    margin: 2px;
-    font-size: 9pt;
-    color: lightsteelblue;
-    border-radius: 50px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: firebrick;
-    box-shadow: rgb(32, 32, 32) 0 0 0.5em;
-}
-
-.item-tags {
-    display: block;
-    float: right;
-}
-
-.item-sep {
-    border: none;
-    border-bottom: 1px solid #333;
-    color: #333;
-    overflow: visible;
-    height: 5px;
-    margin-top: 1em;
-}
-
-hr:after {
-    background-color: rgb(32, 32, 32);
-    content: 'Description';
-    padding: 0 4px;
-    position: relative;
-    top: -10px;
-    left: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
 }
 
 .item-desc {
-    display: block;
-    color: rgb(162, 162, 162);
+    display: flex;
+    flex-direction: column;
+    background: rgba(46, 45, 45, 0.95);
+    padding: 0.5em;
+    font-size: 9pt;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(150%);
+    transition: 500ms;
 }
 
-@media only screen and (max-width: 650px) {
-  /* For mobile phones: */
+.item-container:hover .item-desc {
+    transform: translateY(0%);
+}
+
+.item-title {
+    padding: 0;
+    margin: 0;
+}
+
+.item-info {
+    color: rgb(212, 212, 212);
+}
+
+.controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+a {
+    font-size: 10pt;
+    font-weight: 400;
+    padding: 0em 1em;
+    border: var(--primary-color) solid 1px;
+    border-radius: 2em;
+    /* background: var(--primary-color); */
+    color: var(--primary-color);
+    flex: 1;
+    margin: 0 0.2em;
+    text-align: center;
+}
+
+.tag-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    padding: 1em;
+    opacity: 0;
+    transform: translateY(-100);
+    transition: 500ms;
+}
+
+.item-container:hover .tag-list {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.tag {
+    font-size: 7pt;
+    color: var(--primary-color);
+    background: #1d1d1d;
+    text-shadow: #1d1d1d 0 0 0.3em;
+    box-shadow: #1d1d1d 0 0 0.3em;
+    border-radius: 2em;
+    padding: 0em 1em;
+    margin: 0 0.2em;
+}
+
+@media screen and (max-width: 950px) {
+    .item-container {
+        padding-bottom: 0;
+        height: fit-content;
+    }
+
     .item-thumbnail {
-        width: 30vw;
-        height: 30vw;
+        position: relative;
+        width: 100%;
+        max-height: 25vh;
     }
-    .item-info a {
-        width: 90%;
-        text-align: center;
+
+    .item-title {
+        
+    }
+
+    .item-desc {
+        position: relative;
+        transform: none;
+        background: #1d1d1d;
+    }
+
+    .tag-list {
+        transform: none;
+        opacity: 1;
     }
 }
-
 
 </style>

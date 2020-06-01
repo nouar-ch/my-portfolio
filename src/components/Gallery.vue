@@ -1,17 +1,29 @@
 <template>
+    <transition
+        appear
+        v-on:enter="animate"
+    >
     <div class="gallery-root">
+        <h1>MY WORK</h1>
         <div class="gallery">
-            <Item 
+            <div
+                ref="item"
                 v-for="(item, index) in projects"
                 :key="index"
-                :idx="index"
-                :item="item" />
+            >
+                <Item
+                    :idx="index"
+                    :item="item" />
+            </div>
         </div>
     </div>
+    </transition>
 </template>
 
 <script>
 import Item from "./Item";
+import { TimelineMax } from "gsap";
+import myProjects from "../../public/projects.json";
 
 export default {
     name: "Gallery",
@@ -20,29 +32,28 @@ export default {
     },
     data: function() {
         return {
-            projects: [
+            projects: myProjects
+        }
+    },
+    mounted () {
+        this.animate()
+    },
+    methods: {
+        animate (el, done) {
+            new TimelineMax({onComplete: done})
+            .fromTo(
+                this.$refs.item,
+                0.5,
                 {
-                    title: "project 1",
-                    desc: "some project I'm proud to have finished. fhaljl vömv vkmvm svmv pmkvxm mvölv mvmvkn vvlm övllm",
-                    codeLink: "link to code",
-                    siteLink: "link to site if available",
-                    tags: [
-                        "Go",
-                        "SDL",
-                        "A*"
-                    ]
+                    scale: 0
                 },
                 {
-                    title: "project 1",
-                    desc: "some project I'm proud to have finished. fha ljlvö mvvkm vmsv mvpmkvx m mv öl vmvmvkn vvlmö vllm",
-                    codeLink: "link to code",
-                    tags: [
-                        "Go",
-                        "SDL",
-                        "A*"
-                    ]
-                }
-            ]
+                    scale: 1,
+                    ease: "elastic.out(1, 0.8)",
+                    stagger: 0.09
+                },
+                1   
+            )
         }
     }
 }
@@ -52,20 +63,32 @@ export default {
 
 .gallery-root {
     width: 100%;
+    height: 100%;
+    overflow: auto;
+    color: floralwhite;
 }
 
 .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     width: 70%;
-    padding-top: 1em;
     margin: auto;
 }
 
-@media only screen and (max-width: 910px) {
+.gallery > * {
+    min-width: 300px;
+    min-height: 300px;
+    width: 45%;
+    margin: 0.2em;
+}
+
+@media only screen and (max-width: 950px) {
   /* For mobile phones: */
-    .gallery-root {
-        margin-left: 0.5em;
-        margin-right: 0.5em;
-        width: calc(100% - 1em);
+    .gallery {
+        width: 95%;
+        margin: auto;
     }
 }
 

@@ -1,77 +1,112 @@
 <template>
-    <div class="home-root">
-        <div class="home-card">
-            <div><img src="icon.jpeg" class="photo" /></div>
-            <div class="name">NOUAR CHABANE</div>
-            <div class="title">Software engineer at <a href="#" class="company-link">INNOVIA</a></div>
-            <hr class="line-sep">
-            <div class="scroll-btn" @click="() => onShowDesc()">
-                <fa-icon :icon="chevron"/>
+    <div ref="root" class="home-root">
+        <div ref="image" class="deco">
+            <img src="images/dev-img.png" alt="" srcset="">
+        </div>
+        <div ref="wrapper" class="info">
+            <div>
+                <div class="name">
+                    <SplitText ref="name" text="Nouar Chabane" />
+                </div>
+                <h1 class="greeting">
+                    <SplitText ref="intro" text="I'm a Software Engineer" />
+                </h1>
+                <p>
+                    <small class="fields">
+                        <SplitText ref="expertises" text="Fullstack Developer / Desktop / Mobile / Web / Freelancer." /> 
+                    </small>
+                </p>
             </div>
-            <div class="desc" :class="{'desc-show': show, 'desc-hide': !show}">
-                <div class="section">
-                    <span class="section-title">ABOUT ME</span>
-                    <p class="section-paragraph">
-                        I graduated in 2019 with a master's degree in Computer Science & Artificial Intelligence from
-                        the <a href="#">university of science and technology Houari Boumediene</a>.
-                        Ever since, I have been at my current position as a devops engineer. I worked with mutlinational
-                        team of developers to create cloud solutions for telecommunication companies in the middle east
-                        and Africa. I love to learn new technologies, solve complicated problems, and dive into new
-                        territories. I'm looking to improve my skills, get a senior role, and gain experience in project
-                        management. 
-                    </p>
-                </div>
-                <div class="section">
-                    <span class="section-title">SKILLS</span>
-                    <p class="section-paragraph">
-                        My professional experience has mostly focused on Python, and Python based technologies
-                        (Django, Flask, Numpy, ...). I have also worked with javascript based technologies for personal
-                        and school projects (Vue, React, ...). Languages I worked with also include : C/C++, Java/Kotlin,
-                        and Golang. I have experience relational and non relational data bases (Mysql, Oracle, Mongo).
-                        I'm also familiar with tools such as Git and Ansible, and my main os is linux. 
-                    </p>
-                </div>
-                <div class="section">
-                    <span class="section-title">INTERESTS</span>
-                    <p class="section-paragraph">
-                        My interests include :<br>
-                        <span>Professionally :</span>
-                        I'm currently invested in web based solutions and web development, especially when put
-                        together with A.I techniques, there seems to be no limit to we can accomplish. 
-                        <br><br>
-                        <span>Personnally :</span>
-                        I like to go to the gym, not for the training but rather for the fun with my friends.
-                        I also like binge watching tv shows, listening to meaningful music, and swimming.
-                        
-                    </p>
-                </div>
-            </div>
+            <button ref="portfolio" class="portfolio-btn" @click="onWorkClicked">SEE MY WORK</button>
         </div>
     </div>
 </template>
 
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 
-library.add(faChevronDown, faChevronUp)
+import {TimelineMax, Elastic, Power4} from 'gsap'
+import SplitText from "./SplitText";
 
 export default {
     name: "Home",
+    components: {
+        SplitText
+    },
     data: function () {
         return {
-            show: false,
-            chevron: "chevron-down"
         }
     },
+    mounted () {
+        this.animate()
+    },
     methods: {
-        onShowDesc: function () {
-            this.show = !this.show
-            if (this.show) {
-                this.chevron = "chevron-up"
-            } else {
-                this.chevron = "chevron-down"
+        onWorkClicked() {
+            document.getElementsByClassName('nav-code')[0].click()
+        },
+        animate () {
+            let tl = new TimelineMax()
+            if (window.matchMedia("(max-width: 800px)").matches) {
+                tl = tl.from(
+                    this.$refs.image,
+                    0.5,
+                    {
+                        translateY: '50%'
+                    },
+                    1
+                )
+            }else {
+                tl = tl.from(
+                    this.$refs.image,
+                    0.5,
+                    {
+                        translateX: '50%'
+                    },
+                    1
+                )
             }
+            tl.from(
+                this.$refs.wrapper,
+                0.25,
+                {
+                    scaleY: 0
+                },
+                1.5
+            ).from(
+                this.$refs.name.chars,
+                1.5,
+                {
+                    translateY: -100,
+                    opacity: 0,
+                    ease: Elastic.easeOut,
+                    stagger: 0.1
+                },
+                2
+            ).from(
+                this.$refs.intro.chars,
+                1,
+                {
+                    scaleY: 0,
+                    ease: Elastic.easeOut,
+                    stagger: 0.05
+                },
+                2.5
+            ).from(
+                this.$refs.expertises.words,
+                1,
+                {
+                    translateY: 100,
+                    opacity: 0,
+                    ease: Power4.easeOut,
+                    stagger: 0.15
+                },
+                2
+            ).from(
+                this.$refs.portfolio,
+                0.5,
+                {
+                    scaleX: 0
+                }
+            )
         }
     }
 }
@@ -81,110 +116,85 @@ export default {
 
 .home-root {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    padding: 0% 10%;
+    color: floralwhite;
+    text-align: left;
 }
 
-.home-card {
+.info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: max-content;
-    width: 90%;
-    margin: auto;
-    position: relative;
-    top: 20%;
-    min-height: 60%;
-    border-radius: 20px;
-    box-shadow: rgb(32, 32, 32) 0 0 1em;
-    color: floralwhite;
-    background-color: rgb(32, 32, 32);
-}
-
-.photo {
-    max-width: 200px;
-    max-height: 200px;
-    width: 20vw;
-    height: 20vw;
-    transform: translate(0%, -50%);
-    border-radius: 50%;
-    box-shadow: rgb(32, 32, 32) 0px 0px 0.5em;  
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    flex: 1;
+    
+    padding-left: 1.5em;
+    border-left: floralwhite 1px solid;
 }
 
 .name {
-    color: floralwhite;
-    font-weight: bolder;
-    text-shadow: floralwhite 0px 0px 0.2em;
-    font-size: 24pt;
+    font-size: 20pt;
+    font-weight: 200;
+    line-height: 2em;
 }
 
-.title {
-    font-weight: bold;
-    color: silver;
+.greeting {
+    font-size: 30pt;
+    font-weight: 700;
+    line-height: 1.2em;
+    display: inline;
+    text-shadow: #1d1d1d 0 0 0.1em;
 }
 
-.desc {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    padding-left: 30px;
-    padding-right: 30px;
-    overflow: hidden;
-    transition: 
-        max-height 700ms ease-in-out,
-        opacity 300ms 700ms;
-    -webkit-transition:
-        max-height 700ms ease,
-        opacity 300ms;
-    -moz-transition:
-        max-height 700ms ease,
-        opacity 300ms 300ms;
-    -o-transition:
-        max-height 700ms ease,
-        opacity 300ms;
+.deco {
+    flex: 1;
+    width: 70%;
 }
 
-.desc-hide {
-    max-height: 0px;
-    opacity: 0;
+.deco > img {
+    max-width: 100%;
+    filter: drop-shadow(0 0 0.2em #1d1d1d);
 }
 
-.desc-show {
-    max-height: 1000vh;
-    opacity: 1;
+.portfolio-btn {
+    font-size: 11pt;
+    align-self: start;
 }
 
-.section {
-    padding: 20px;
-}
+@media screen and (max-width: 800px) { 
+    .portfolio-btn {
+        align-self: center;
+    }
 
-.section-title {
-    font-style: oblique;
-}
+    .deco {
+        flex: 0;
+    }
 
-.section-paragraph {
-    text-align: justify;
-    color: silver;
-}
+    .greeting {
+        font-size: 24pt;
+    }
 
-.line-sep {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-}
+    .name {
+        font-size: 14pt;
+    }
 
-.scroll-btn {
-    padding: 1.2em;
-    align-self: center;
-}
+    .info {
+        text-align: center;
+        padding-left: 0;
+        border-left: none;
+        justify-content: space-evenly;
+    }
 
-/** Media queries  */
-
-@media only screen and (max-width: 910px) {
-  /* For mobile phones: */
-  .desc {
-    display: flex;
-    flex-direction: column;
-  }
+    .home-root {
+        flex-direction: column;
+        justify-content: stretch;
+    } 
 }
 
 </style>

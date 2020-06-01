@@ -1,0 +1,29 @@
+[
+    {
+        "title": " My Portfolio",
+        "img": "images/portfolio.png",
+        "desc": "My portfolio website, developed using Vuejs.",
+        "codeLink": "https://github.com/nouar-ch/my-portfolio",
+        "demoLink": "",
+        "tags": [
+            "HTML",
+            "CSS",
+            "Javascript",
+            "npm",
+            "Vuejs",
+            "gsap"
+
+        ]
+    },
+    {
+        "title": "A* algorithm",
+        "img": "images/astar.png",
+        "desc": "visual implementation of A* algorithm with Go and SDL.",
+        "codeLink": "https://github.com/nouar-ch/astar_visual",
+        "tags": [
+            "Go",
+            "SDL",
+            "A*"
+        ]
+    }
+]

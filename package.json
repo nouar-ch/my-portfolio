@@ -15,7 +15,10 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "animejs": "^3.2.0",
     "aos": "^2.3.4",
+    "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "gsap": "^3.2.6",
+    "p5": "^1.0.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {

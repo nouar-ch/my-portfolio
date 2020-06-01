@@ -33,42 +33,42 @@ export default {
 
 <style>
 
-@font-face {
-  font-family: "Futura";
-  src: url("./assets/futura1/FuturaTMed.ttf");
-}
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 html, body {
   width: 100vw;
   height: 100vh;
   margin: 0px;
   padding: 0px;
+
+  --primary-color: #43e97b;
+
 }
 
 #app {
   display: flex;
-  font-family: Futura, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Spartan, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: firebrick;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+  background-blend-mode: multiply;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /** a element styles */
 a {
-  color: firebrick;
+  color: var(--primary-color);
   text-decoration-line: none;
   font-style: oblique;
   transition: 500ms;
 }
 
 a:hover {
-  text-shadow: firebrick 0 0 0.5em;
+  text-shadow: var(--primary-color) 0 0 0.5em;
 }
 
 a:active {
@@ -78,5 +78,25 @@ a:active {
 
 a:focus {
   outline: none;
+}
+
+button {
+  background: transparent;
+  outline: solid 1px var(--primary-color);
+  border: none;
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  text-shadow: 0 0 0.2em var(--primary-color);
+  box-shadow: 0 0 .2em var(--primary-color);
+}
+
+@media only screen and (max-width: 512px) {
+  #app {
+    flex-direction: column;
+  }
 }
 </style>
