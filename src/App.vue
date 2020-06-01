@@ -9,6 +9,9 @@
 import Navbar from "./components/Navbar"
 import Container from "./components/Container"
 
+import { gsap, CSSPlugin } from "gsap";
+gsap.registerPlugin(CSSPlugin)
+
 export default {
   name: 'App',
   components: {

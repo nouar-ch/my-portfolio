@@ -12,8 +12,8 @@
                 {{item.desc}}
             </p>
             <div class="controls">
-                <a v-if="item.codeLink" :href="item.codeLink">VIEW CODE</a>
-                <a v-if="item.demoLink" :href="item.demoLink">TRY OUT</a>
+                <a v-if="item.codeLink" target="_blank" :href="item.codeLink">VIEW CODE</a>
+                <a v-if="item.demoLink" target="_blank" :href="item.demoLink">TRY OUT</a>
             </div>
         </div>
     </div>
@@ -135,10 +135,6 @@ a {
         position: relative;
         width: 100%;
         max-height: 25vh;
-    }
-
-    .item-title {
-        
     }
 
     .item-desc {
