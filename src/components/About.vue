@@ -21,7 +21,7 @@
                     text="Interested in software development from backend to frontend, mainly web and mobile development." 
                 />
             </p>
-            <button ref="resume">CHECKOUT MY RESUME</button>
+            <button @click="serveCV" ref="resume">CHECKOUT MY RESUME</button>
         </div>
     </div>
 </template>
@@ -89,6 +89,9 @@ export default {
                 },
                 1.5
             )
+        },
+        serveCV () {
+            window.open('/Nouar-EN.pdf', '_blank')
         }
     }
 }

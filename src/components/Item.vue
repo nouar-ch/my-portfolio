@@ -103,6 +103,8 @@ a {
     top: 0;
     right: 0;
     display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
     padding: 1em;
     opacity: 0;
     transform: translateY(-100);
@@ -122,7 +124,7 @@ a {
     box-shadow: #1d1d1d 0 0 0.3em;
     border-radius: 2em;
     padding: 0em 1em;
-    margin: 0 0.2em;
+    margin: 0.2em 0.2em;
 }
 
 @media screen and (max-width: 950px) {

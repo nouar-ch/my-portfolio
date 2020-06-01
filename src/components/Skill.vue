@@ -1,22 +1,11 @@
 <template>
-    <div class="skill-root">
+    <div ref="skillRoot" @mouseenter="enterAnimation" @mouseleave="leaveAnimation" class="skill-root">
         <div class="skill-icon">
             <img :src="icon" alt="" srcset="">
         </div>
         <div class="skill-info">
             <div class="skill-name">{{name}}</div>
-            <div class="skill-progressbar">
-                <transition
-                    appear
-                    v-on:enter="animateProgress"
-                >
-                <div 
-                    class="skill-progress"
-                    :style="progress"></div>
-                </transition>
-            </div>
         </div>
-        <div class="skill-grade">{{grade}}%</div>
     </div>
 </template>
 
@@ -28,39 +17,31 @@ export default {
     name: "Skill",
     props: {
         icon: String,
-        name: String,
-        grade: {
-            type: Number,
-            validator: grade => {
-                return (grade >= 0 && grade <= 100) 
-            },
-            default: 0
-        }
+        name: String
     },
     data () {
         return {
-            progress: {
-                width: `${this.grade}%`
-            }
         }
     },
     methods: {
-        animateProgress (el, done) {
-            new TimelineLite({onComplete: done})
-            .set(
-                el,
-                {
-                    transformOrigin: "left"
-                }
-            )
-            .from(
-                el,
+        enterAnimation () {
+            new TimelineLite()
+            .to(
+                this.$refs.skillRoot,
                 0.5,
                 {
-                    scaleX: 0,
-                    ease: "power2.out"
-                },
-                0.5
+                    scale: 1.5
+                }
+            )
+        },
+        leaveAnimation () {
+            new TimelineLite()
+            .to(
+                this.$refs.skillRoot,
+                0.5,
+                {
+                    scale: 1
+                }
             )
         }
     }
@@ -96,7 +77,7 @@ export default {
     width: 100%;
 }
 
-.skill-progressbar {
+/* .skill-progressbar {
     font-size: 10pt;
     height: 0.5vw;
     margin-top: 1em;
@@ -112,10 +93,8 @@ export default {
     border-radius: 1em;
     background-image: linear-gradient(
         60deg, #abecd6 0%, #fbed96 100%);
-    /*background-image: linear-gradient(
-        to right, firebrick 80%, seagreen);*/
     margin-left: -1px;
-}
+} */
 
 .skill-name {
     float: left;
@@ -123,22 +102,22 @@ export default {
     font-weight: 600;
 }
 
-.skill-grade {
+/* .skill-grade {
     font-weight: 800;
     letter-spacing: 0.1em;
     font-size: 12pt;
     align-self: flex-end;
     padding: 0.5em;
-}
+} */
 
 @media only screen and (max-width: 800px) {
-    .skill-root {
-        width: 100%;
+    .skill-name {
+        letter-spacing: 0.1em;
+        font-size: 9pt;
     }
-
-    .skill-grade {
+    /* .skill-grade {
         font-size: 10pt;
-    }
+    } */
 }
 
 </style>

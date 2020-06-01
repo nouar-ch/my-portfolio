@@ -46,22 +46,23 @@
         <div class="contact" :class="{'shown': showMenu}">
             <div>
                 <big>
-                    <fa-icon :icon="['fab', 'facebook']" />
+                    <a href="https://www.facebook.com/dev.imad.chabane" target="_blank">
+                        <fa-icon :icon="['fab', 'facebook']" />
+                    </a>
                 </big>
             </div>
             <div>
                 <big>
-                    <fa-icon :icon="['fab', 'instagram']" />
+                    <a href="http://www.linkedin.com/in/nouar-chabane-1036a4147" target="_blank">
+                        <fa-icon :icon="['fab', 'linkedin']" />
+                    </a>
                 </big>
             </div>
             <div>
                 <big>
-                    <fa-icon :icon="['fab', 'linkedin']" />
-                </big>
-            </div>
-            <div>
-                <big>
-                    <fa-icon :icon="['fab', 'git']" />
+                    <a href="https://www.github.com/nouar-ch" target="_blank">
+                        <fa-icon :icon="['fab', 'git']" />
+                    </a>
                 </big>
             </div>
         </div>
@@ -157,7 +158,7 @@ nav > div > big {
     transition: 500ms;
 }
 
-nav > div:hover, .contact > div:hover {
+nav > div:hover, .contact > div:hover a {
     color: var(--primary-color);
 }
 

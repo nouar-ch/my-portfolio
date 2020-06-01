@@ -64,7 +64,7 @@ html, body {
 
 /** a element styles */
 a {
-  color: var(--primary-color);
+  color: floralwhite;
   text-decoration-line: none;
   font-style: oblique;
   transition: 500ms;

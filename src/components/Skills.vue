@@ -4,19 +4,26 @@
         v-on:enter="animate"
     >
     <div class="skills-root">
-        <div class="section-title">SKILL SET</div>
-        <div class="skill-list">
-            <Skill icon="skills/javascript.svg" name="Javascript" :grade="90" />
-            <Skill icon="skills/c++.svg" name="C/C++" :grade="75" />
-            <Skill icon="skills/java.svg" name="Java" :grade="75" />
-            <Skill icon="skills/kotlin.svg" name="Kotlin" :grade="65" />
-            <Skill icon="skills/golang.svg" name="Golang" :grade="37" />
-            <Skill icon="skills/python.svg" name="Python" :grade="80" />
-            <Skill icon="skills/vue.svg" name="Vue" :grade="72" />
-            <Skill icon="skills/react.svg" name="React" :grade="70" />
-            <Skill icon="skills/react.svg" name="React Native" :grade="60" />
-            <Skill icon="skills/php.svg" name="Php" :grade="76" />
-            <Skill icon="skills/android_studio.svg" name="Android" :grade="75" />
+        <div class="section languages">
+            <div class="section-title">Programming Languages</div>
+            <div class="skill-list">
+                <Skill icon="skills/javascript.svg" name="Javascript" />
+                <Skill icon="skills/c++.svg" name="C/C++" />
+                <Skill icon="skills/java.svg" name="Java" />
+                <Skill icon="skills/kotlin.svg" name="Kotlin" />
+                <Skill icon="skills/golang.svg" name="Golang" />
+                <Skill icon="skills/python.svg" name="Python" />
+            </div>
+        </div>
+        <div class="section frameworks">
+            <div class="section-title">Frameworks & Libraries</div>
+            <div class="skill-list">
+                <Skill icon="skills/vue.svg" name="Vue" />
+                <Skill icon="skills/react.svg" name="React" />
+                <Skill icon="skills/react.svg" name="React Native" />
+                <Skill icon="skills/android_studio.svg" name="Android" />
+                <Skill icon="skills/django.svg" name="Django" />
+            </div>
         </div>
     </div>
     </transition>
@@ -63,6 +70,10 @@ export default {
     overflow: auto;
 }
 
+.section {
+    flex: 1;
+}
+
 .section-title {
     font-size: 18pt;
     font-weight: 900;
@@ -73,22 +84,22 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     width: 80%;
     margin: auto;
     color: #2a2a2a;
 }
 
 .skill-list > * {
-    width: 40%;
+    width: fit-content;
     height: fit-content;
     font-size: 15pt;
 }
 
 @media screen and (max-width: 800px) {
-    .skill-list > * {
+    
+    .skill-list {
         width: 100%;
-        height: fit-content;
-        font-size: 12pt;
     }
 }
 
