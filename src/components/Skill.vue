@@ -1,6 +1,6 @@
 <template>
     <div ref="skillRoot" @mouseenter="enterAnimation" @mouseleave="leaveAnimation" class="skill-root">
-        <div class="skill-icon">
+        <div ref="icon" class="skill-icon">
             <img :src="icon" alt="" srcset="">
         </div>
         <div class="skill-info">
@@ -11,7 +11,7 @@
 
 <script>
 
-import { TimelineLite } from "gsap";
+import { TimelineMax } from "gsap";
 
 export default {
     name: "Skill",
@@ -25,23 +25,40 @@ export default {
     },
     methods: {
         enterAnimation () {
-            new TimelineLite()
+            new TimelineMax()
             .to(
                 this.$refs.skillRoot,
                 0.5,
                 {
                     scale: 1.5
-                }
+                },
+                0
+            )
+            .to(
+                this.$refs.icon,
+                0.5,
+                {
+                    rotateZ: "360deg"
+                },
+                0
             )
         },
         leaveAnimation () {
-            new TimelineLite()
+            new TimelineMax()
             .to(
                 this.$refs.skillRoot,
                 0.5,
                 {
                     scale: 1
                 }
+            )
+            .to(
+                this.$refs.icon,
+                0.5,
+                {
+                    rotateZ: "-360deg"
+                },
+                0
             )
         }
     }
@@ -56,6 +73,7 @@ export default {
     display: flex;
     text-align: left;
     align-items: center;
+    cursor: default;
 }
 
 .skill-icon {
